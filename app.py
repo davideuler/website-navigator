@@ -61,15 +61,13 @@ def save(key,url,tags):
     if(not domainDict and os.path.isfile('./dict')):
         init()
     domainDict[key] = (url,tags)
-    fi = open('./dict','w')
-    pickle.dump(domainDict,fi)
-    fi.close()
+    with open('./dict','w') as fi:
+        pickle.dump(domainDict,fi)
 
 def init():
     global domainDict
-    fi = open('./dict','r')
-    domainDict = pickle.load(fi)
-    fi.close()
+    with open('./dict','r') as fi:
+        domainDict = pickle.load(fi)
     print('pickled')
 
 @app.route('/', methods=['GET', 'POST'], defaults={'path': ''})
